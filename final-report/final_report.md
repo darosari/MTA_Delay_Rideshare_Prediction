@@ -43,9 +43,6 @@ Although the exact problem of predicting hourly rideshare demand using MTA delay
 
 ## Data and Methods
 
-### Data Sources and Processing
-### Data and Methods
-
 #### Data
 
 The dataset used in this project was created by integrating three primary data sources: hourly rideshare trip data from the New York City Taxi and Limousine Commission (TLC), hourly weather reports from publicly available meteorological datasets, and subway delay and ridership information from the Metropolitan Transportation Authority (MTA). These sources are widely regarded as reliable and are commonly used in urban mobility research and government reporting. All data processing steps were completed using the following notebooks:
