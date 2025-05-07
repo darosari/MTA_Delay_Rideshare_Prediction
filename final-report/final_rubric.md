@@ -12,11 +12,10 @@ A nice short title for your project, helping me to understand roughly what it is
 
 This section should include the full names of each team member, **along with their github ids**.
 
+
 ### Introduction
 
-This section will introduce your project.  It will tell me what are you trying to do, and who your primary stakeholder is. It will also explain the stakeholder need(s) that you are trying to address, and explain why this is a significant need. You will also briefly summarize your solution here, and explain how it addresses the expressed need.  If the project does not fully address the stated need, then you should explain how what you have done can be understood as an incremental step in this direction. This section should be no more than a few paragraphs in length.  
 
-Note that I will evaluate your project in part according to whether ot not you can establish a connection between the work you have done and the need identified. Hence if you state that your stakeholder is a medical insurance provider who is trying to minimize costs without reducing levels of care, and your project predicts medical costs for patients with various symptom profiles, you will need to provide convincing arguments that connect the identified need with the ML solution you've come up with.
 
 ### Literature Review
 
