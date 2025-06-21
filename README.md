@@ -1,96 +1,138 @@
-# MTA Delay & Rideshare Demand Prediction
+# Forecasting NYC Rideshare Demand Using MTA Delays, Weather, and Ridership Data
 
-This portfolio-ready data science project applies **machine learning** to model and predict **rideshare demand in New York City** based on **MTA subway delay patterns**. It was developed as a collaborative group assignment for a graduate-level course in data mining and analytics.
+## Team
+**Dawryn Rosario**  
+darosari@syr.edu | [GitHub](https://github.com/darosari)
 
----
+**Rianne Parker**  
+riparker@syr.edu | [GitHub](https://github.com/datawitparker)
 
-## Problem Statement
-Urban mobility in NYC relies heavily on public transportation. But when the subway system experiences delays, do more people turn to rideshare services like Uber and Lyft?
-
-**Goal:** Use NYC MTA delay data to predict daily rideshare counts and understand how transit disruptions affect alternative transportation demand.
-
----
-
-## Project Milestones & Key Files
-
-### Checkpoint 1 — [Proposal & Rubric](./checkpoint1/proposal.md)
-- [Proposal Rubric](./checkpoint1/proposal_rubric.md)
-- Business case & motivation
-- Problem framing and ML applicability
-- Dataset links and team coordination plan
-
-### Checkpoint 2 — [EDA & Initial Cleaning](./checkpoint2/submission.ipynb)
-- Exploratory data analysis
-- Preprocessing plans
-- Delay category breakdowns
-- Initial modeling direction
-
-### Checkpoint 3 — [Checkpoint 3 Rubric](./checkpoint3/checkpoint3_rubric.md)
-- Feedback-focused checkpoint
-- Guided improvements toward final model
-
-### Final Analysis — [Full EDA + Modeling](./Data%20Processing/mta_delays/MTA_delays_EDA.ipynb)
-- Residual analysis
-- Actual vs predicted comparison
-- Feature importances
+**Marko Masnikosa**  
+mmasniko@syr.edu | [GitHub](https://github.com/data11y)
 
 ---
 
-## Methodology Summary
-- **Data Source:** MTA Subway Delays (2020–2025)
-- **Target Variable:** Daily rideshare trip counts
-- **Features Engineered:**
-  - Delay categories
-  - Daily total delays
-  - External weather data
-  - Processed ridership stats
-- **Models Used:**
-  - Linear Regression
-  - Random Forest Regressor
-  - XGBoost Regressor
+## Overview
+This project builds a machine learning model to forecast hourly rideshare demand in NYC using a fusion of MTA subway delay records, daily ridership, and hourly weather data. The primary goal is to analyze how disruptions in public transportation affect shifts in commuter behavior toward rideshare services.
+
+**Key Use Cases**:
+- **Rideshare platforms**: Anticipate demand for better pricing/logistics.
+- **City planners**: Predict congestion and improve service coverage.
+- **NYC residents**: Gain insights into factors that drive rideshare spikes.
 
 ---
 
-## Repository Structure
-| Folder/File | Description |
-|-------------|-------------|
-| [`/checkpoint1`](./checkpoint1) | Proposal documents and rubric |
-| [`/checkpoint2`](./checkpoint2) | EDA, preprocessing, and initial modeling plan |
-| [`/checkpoint3`](./checkpoint3) | Feedback rubric for final modeling checkpoint |
-| [`/Data Processing/mta_delays`](./Data%20Processing/mta_delays) | Jupyter notebooks with cleaning, EDA, modeling |
-| [`/final-report`](./final-report) | Final written report & rubric |
-| [`/pictures`](./pictures) | Visual output from models & EDA |
-| [`README.md`](./README.md) | This file |
+## Literature Context
+Prior studies show that both transit reliability and weather influence urban mobility. While some models look at these factors individually, our approach combines them into one predictive system. Using XGBoost, we optimized both performance and interpretability, identifying the features most responsible for spikes in rideshare use.
 
 ---
 
-## Project Visuals
-| Screenshot | Description |
-|----------------|----------------|
-| ![](pictures/sub_delays_v_rideshare_count.png) | Subway delays vs rideshare activity |
-| ![](pictures/xgboost_feature_importants.png) | Top predictors (XGBoost) |
-| ![](pictures/predictionsvactual.png) | Predicted vs Actual comparison |
-| ![](pictures/distribution_of_residuals.png) | Model residuals distribution |
-| ![](pictures/aVp_overtime.png) | Rideshare usage over time |
-| ![](pictures/MTA_delays_per_year.png) | Delays by year |
+## Data Sources
+We utilized three primary datasets:
+- **TLC Rideshare Data** (hourly Uber rides)
+- **MTA Subway Delays** (daily delay summaries)
+- **NOAA Weather Reports** (hourly local weather metrics)
+
+**Preprocessing Techniques**:
+- Time-based joins by date/hour
+- One-hot encoding of categorical weather conditions
+- Forward-fill and mean imputation for missing entries
+
+### Notebooks
+- `TLC_data_gathering.ipynb`  
+- `MTA Daily Ridership_data_processed.ipynb`  
+- `MTA_delays_EDA.ipynb`
 
 ---
 
-## Collaborators
-This was a collaborative team effort by:
-- **Dawryn Rosario** — [@darosari](https://github.com/darosari) *(Data cleaning, regression modeling, EDA, repository setup)*
-- **Parker** — [@datawitparker](https://github.com/datawitparker) *(Feature engineering, XGBoost, proposal writing)*
-- **Ally** — [@data11y](https://github.com/data11y) *(Data collection, visualization, documentation)*
+## Modeling Approach
+
+**Target**: `trip_count` (hourly Uber rides)  
+**Model**: XGBoost Regressor (after testing Linear Regression and Decision Tree)
+
+### Pipeline:
+1. Data split (80/20 train-test)
+2. Feature scaling
+3. Hyperparameter tuning (`learning_rate`, `n_estimators`, `max_depth`)
+4. Model evaluation using RMSE and residual analysis
 
 ---
 
-## Final Thoughts
-- Demonstrates how public data can inform real-world transportation planning
-- Tackles challenges in temporal regression and data quality
-- Clean and reproducible code for further experimentation or city-specific analysis
+## Visual Results
+
+**Subway Delays vs. Rideshare Count**  
+Shows a strong positive relationship between increased subway disruptions and higher Uber trip counts.  
+![Subway Delays vs Rideshare Count](./pictures/sub_delays_v_rideshare_count.png)
+
+**XGBoost Feature Importances**  
+Highlights the dominant role of trip-specific features and subway delays.  
+![XGBoost Feature Importances](./pictures/xgboost_feature_importants.png)
+
+**Predicted vs. Actual Rideshare Volumes**  
+Demonstrates strong predictive alignment with some expected variance.  
+![Predicted vs Actual](./pictures/predictionsvactual.png)
+
+**Residuals Distribution**  
+Residuals are roughly normal, centered around zero—indicating low model bias.  
+![Residuals](./pictures/distribution_of_residuals.png)
+
+**Rideshare Volume Over Time**  
+Capture of total hourly rides across the entire dataset.  
+![Volume Over Time](./pictures/aVp_overtime.png)
+
+**Annual MTA Delay Counts**  
+Illustrates a consistent rise in annual subway delays from 2020 to 2024.  
+![Delay Counts Per Year](./pictures/MTA_delays_per_year.png)
 
 ---
 
-**Explore Notebooks:** Just click on any linked file to dive into the code.
+## Model Performance
+- **RMSE**: 1588.2
+- **Top Features**:
+  - `service_uber`
+  - `trip_miles_mean`
+  - `trip_time_mean`
+  - `total_delays`
 
-**Star this repo** if you found it insightful.
+---
+
+## Project Structure
+| Folder | Description |
+|--------|-------------|
+| `checkpoint1/` | Proposal & rubric |
+| `checkpoint2/` | Local examples, rubric, and early models |
+| `checkpoint3/` | Final checkpoint feedback |
+| `Data Processing/mta_delays/` | All core data cleaning, EDA, and modeling notebooks |
+| `final-report/` | Final writeup, rubric |
+| `pictures/` | All visual outputs used in documentation |
+
+---
+
+## Key Insights
+- Subway delays were a strong predictor of increased rideshare use.
+- Weather, though less dominant, helped refine hourly predictions.
+- The model remained interpretable and responsive across scenarios.
+
+### Limitations
+- Gaps in hourly weather reporting
+- Lack of geospatial resolution
+- Holiday/event impacts not fully captured
+
+---
+
+## Future Improvements
+- Incorporate live APIs for real-time modeling
+- Add geolocation analysis of delays and rides
+- Integrate special events or holidays as dummy features
+- Experiment with temporal models (e.g., LSTM)
+
+---
+
+## Contributor Roles
+- **Dawryn Rosario** – EDA, modeling, data cleaning, GitHub setup
+- **Rianne Parker** – Feature engineering, literature review, parameter tuning
+- **Marko Masnikosa** – Data collection, charts, and documentation
+
+---
+
+This repository demonstrates how transportation, weather, and urban activity data can be merged to forecast rideshare demand. The approach balances reproducibility and insight, offering a launchpad for real-world implementation in smart city planning.
